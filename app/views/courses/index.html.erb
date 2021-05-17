@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Courses</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<table class="table">
+ <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Seats</th>
+      <th>Enrolled</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.name %></td>
+        <td><%= course.description %></td>
+        <td><%= course.seats %></td>
+        <td><%= course.enrolled %></td>
+        <td><%= link_to 'Show', course, class:"btn btn-outline-info"  %></td>
+        <td><%= link_to 'Enroll', courses_enroll_path(:id => course.id), method: :post, class:"btn btn-outline-success" %></td>
+        <td><%= link_to 'De-enroll', courses_deenroll_path(:id => course.id), method: :post, class:"btn btn-outline-warning" %></td>
+        <% if current_user && current_user.admin %>
+        <td><%= link_to 'Edit', edit_course_path(course), class:"btn btn-outline-secondary" %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

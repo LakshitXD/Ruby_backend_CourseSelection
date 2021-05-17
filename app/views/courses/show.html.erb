@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h1>Course Details</h1>
+<br/>
+<br/>
+<table class="table table-hover">
+  <p>
+  <tr>
+    <td><strong>Name:</strong></td>
+    <td><%= @course.name %></td>
+  </tr>
+  </p>
+  
+  <p>
+  <tr>
+    <td><strong>Description:</strong></td>
+    <td><%= @course.description %></td>
+  </tr>
+  </p>
+
+  <p>
+  <tr>
+    <td><strong>Seats:</strong></td>
+    <td><%= @course.seats %></td>
+  </tr>
+  </p>
+
+  <p>
+  <tr>
+    <td><strong>Enrolled:</strong></td>
+    <td><%= @course.enrolled %></td>
+  </tr>
+  </p>
+  <p>
+  <tr>
+    <td><strong>Students Enrolled:</strong></td>
+    <% @user.each do |user| %>
+    
+      <% if Connector.where(user_id: user.id ,course_id: @course.id).exists? %>
+          <td><%= user.email  %></td>
+      <% end %>
+    <% end %>
+  </tr>      
+  </p>
+</table>
+
+<% if current_user && current_user.admin %>
+<%= link_to 'Edit', edit_course_path(@course), class:"btn btn-outline-dark" %> 
+<% end %>
+<%= link_to 'Back', courses_path, class:"btn btn-outline-dark" %>
